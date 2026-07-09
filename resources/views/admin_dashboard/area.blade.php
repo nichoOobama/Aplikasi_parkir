@@ -1,6 +1,6 @@
  @extends('layouts.admin')
 
- @section('title', 'Area Parkir')
+ @section('title', ' - Area Parkir')
 
  @section('content')
  <div class="row mb-4">
