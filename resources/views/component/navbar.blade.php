@@ -8,7 +8,7 @@
 
                 <small class="text-muted text-uppercase mt-4 d-block">Manajemen Master</small>
                 <a href="{{route('dashboard.area')}}" class="mt-2 {{ request()->routeIs('dashboard.area') ? 'active' : '' }}"><i class="bi bi-signpost-split me-2"></i> Area Parkir</a>
-                <a href="{{route('dashboard.jenis')}}" class="mt-2 {{ request()->routeIs('dashboard.jenis') ? 'active' : '' }}"><i class="bi bi-car-front me-2"></i> Jenis Kendaraan</a>
+                <a href="{{route('dashboard.kendaraan')}}" class="mt-2 {{ request()->routeIs('dashboard.kendaraan') ? 'active' : '' }}"><i class="bi bi-car-front me-2"></i> Kendaraan</a>
                 <a href="{{route('dashboard.tarif')}}" class="mt-2 {{ request()->routeIs('dashboard.tarif') ? 'active' : '' }}"><i class="bi bi-tags me-2"></i> Tarif Parkir</a>
 
                 <small class="text-muted text-uppercase mt-4 d-block">Laporan</small>

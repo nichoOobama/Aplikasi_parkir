@@ -1,14 +1,14 @@
 @extends('layouts.admin')
-@section('title', ' - Tarif Parkir')
+@section('title', ' - Jenis Kendaraan')
 @section('content')
 <div class="row mb-4">
     <div class="col-12 d-flex justify-content-between align-items-center">
         <div>
-            <h2 class="h4">Tarif Parkir</h2>
+            <h2 class="h4">Jenis Kendaraan</h2>
             <p class="text-muted">Kelola lokasi dan kapasitas area parkir di sini.</p>
         </div>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#modalTambahArea">
-            <i class="bi bi-plus-lg"></i> Tambah Tarif
+            <i class="bi bi-plus-lg"></i> Tambah Kendaraan
         </button>
     </div>
 </div>
@@ -20,8 +20,9 @@
                 <thead class="table-dark">
                     <tr>
                         <th>No</th>
-                        <th>Jenis</th>
-                        <th>Tarif/jam</th>
+                        <th>Jenis Kendaraan</th>
+                        <th>Plat Nomor</th>
+                        <th>Pemilik</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -29,7 +30,8 @@
                     <tr>
                         <td>1</td>
                         <td><span class="badge bg-secondary">Truck</span></td>
-                        <td>5000</td>
+                        <td>BE 4040 FE</td>
+                        <td>Udin</td>
                         <td class="text-center">
                             <button class="btn btn-sm btn-warning text-white" title="Edit">
                                 <i class="bi bi-pencil-square"></i>
@@ -44,6 +46,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="modalTambahArea" tabindex="-1" aria-labelledby="modalTambahAreaLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -84,5 +87,6 @@
     </div>
 </div>
 </main>
+</div>
 </div>
 @endsection

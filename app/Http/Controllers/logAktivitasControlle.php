@@ -10,4 +10,6 @@ class logAktivitasControlle extends Controller
     public function log() {
         return view('admin_dashboard.logAktivitas');
     }
+
+
 }

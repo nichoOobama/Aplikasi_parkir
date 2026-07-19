@@ -1,14 +1,14 @@
 @extends('layouts.admin')
-@section('title', ' - Jenis Kendaraan')
+@section('title', ' - Tarif Parkir')
 @section('content')
 <div class="row mb-4">
     <div class="col-12 d-flex justify-content-between align-items-center">
         <div>
-            <h2 class="h4">Jenis Kendaraan</h2>
+            <h2 class="h4">Tarif Parkir</h2>
             <p class="text-muted">Kelola lokasi dan kapasitas area parkir di sini.</p>
         </div>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-toggle="modal" data-bs-target="#modalTambahArea">
-            <i class="bi bi-plus-lg"></i> Tambah Kendaraan
+            <i class="bi bi-plus-lg"></i> Tambah Tarif
         </button>
     </div>
 </div>
@@ -20,23 +20,33 @@
                 <thead class="table-dark">
                     <tr>
                         <th>No</th>
-                        <th>Jenis Kendaraan</th>
+                        <th>Jenis</th>
+                        <th>Nama Kendaraan</th>
+                        <th>Tarif/jam</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($tarif as $t)
                     <tr>
-                        <td>1</td>
-                        <td><span class="badge bg-secondary">Truk</span></td>
+                        <td>{{ $t -> id}}</td>
+                        <td><span class="badge bg-secondary">{{ $t -> jenis_kendaraan}}</span></td>
+                        <td>{{ $t -> nama_kendaraan}}</td>
+                        <td>{{ $t -> tarif_perjam}}</td>
                         <td class="text-center">
-                            <button class="btn btn-sm btn-warning text-white" title="Edit">
+                              <a class="btn btn-sm btn-warning text-white" title="Edit" href="{{route('tarif.edit', $t->id)}}">
                                 <i class="bi bi-pencil-square"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger" title="Hapus">
+                            </a>
+                            <form action="{{route('tarif.destroy', $t->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
                                 <i class="bi bi-trash"></i>
                             </button>
+                            </form>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -50,27 +60,24 @@
                 <h5 class="modal-title" id="modalTambahAreaLabel">Tambah Area Parkir Baru</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="#" method="POST">
+            <form action="{{route('tarif.store')}}" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="kode_area" class="form-label">Kode Area</label>
-                        <input type="text" class="form-control" id="kode_area" placeholder="Contoh: A1" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="nama_area" class="form-label">Nama Area</label>
-                        <input type="text" class="form-control" id="nama_area" placeholder="Contoh: Parkiran Utara" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="kapasitas" class="form-label">Kapasitas (Jumlah Kendaraan)</label>
-                        <input type="number" class="form-control" id="kapasitas" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        <select class="form-select" id="status" required>
-                            <option value="1">Aktif</option>
-                            <option value="0">Non-Aktif</option>
+                        <label for="status" class="form-label">Jenis</label>
+                        <select class="form-select" name="jenis_kendaraan" required>
+                            <option value="Montor">Montor</option>
+                            <option value="Mobil">Mobil</option>
+                            <option value="lainnya">Lainnya</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="kapasitas" class="form-label">Nama Kendaraan</label>
+                        <input type="text" class="form-control" name="nama_kendaraan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="kapasitas" class="form-label">Tarif Perjam</label>
+                        <input type="number" class="form-control" name="tarif_perjam" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -82,6 +89,5 @@
     </div>
 </div>
 </main>
-</div>
 </div>
 @endsection

@@ -21,7 +21,6 @@
              <table class="table table-hover table-striped align-middle">
                  <thead class="table-dark">
                      <tr>
-                         <th>No</th>
                          <th>Kode Area</th>
                          <th>Nama Area</th>
                          <th>Kapasitas</th>
@@ -30,21 +29,26 @@
                      </tr>
                  </thead>
                  <tbody>
-                     <tr>
-                         <td>1</td>
-                         <td><span class="badge bg-secondary">A1</span></td>
-                         <td>Gedung Utama Lantai 1</td>
-                         <td>50 Kendaraan</td>
-                         <td><span class="badge bg-success">Aktif</span></td>
+                    @foreach ($area as $a)
+                    <tr>
+                         <td><span class="badge bg-secondary">{{ $loop -> iteration }}</span></td>
+                         <td>{{ $a -> nama_area }}</td>
+                         <td>{{ $a -> kapasitas }}</td>
+                         <td><span class="badge {{ $a -> tensi === 1? 'bg-success' : 'bg-danger' }}">{{ $a -> tensi === 1? 'Tersedia' : 'Tidak Tersedia' }}</span></td>
                          <td class="text-center">
-                             <button class="btn btn-sm btn-warning text-white" title="Edit">
-                                 <i class="bi bi-pencil-square"></i>
-                             </button>
-                             <button class="btn btn-sm btn-danger" title="Hapus">
-                                 <i class="bi bi-trash"></i>
-                             </button>
+                            <a class="btn btn-sm btn-warning text-white" title="Edit" href="{{route('area.edit', $a->id)}}">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                             <form action="{{route('area.destroy', $a->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                             </form>
                          </td>
-                     </tr>
+                    </tr>
+                     @endforeach
                  </tbody>
              </table>
          </div>
@@ -58,26 +62,22 @@
                  <h5 class="modal-title" id="modalTambahAreaLabel">Tambah Area Parkir Baru</h5>
                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
              </div>
-             <form action="#" method="POST">
+             <form action="{{ route('area.store') }}" method="POST">
                  @csrf
                  <div class="modal-body">
                      <div class="mb-3">
-                         <label for="kode_area" class="form-label">Kode Area</label>
-                         <input type="text" class="form-control" id="kode_area" placeholder="Contoh: A1" required>
-                     </div>
-                     <div class="mb-3">
                          <label for="nama_area" class="form-label">Nama Area</label>
-                         <input type="text" class="form-control" id="nama_area" placeholder="Contoh: Parkiran Utara" required>
+                         <input type="text" class="form-control" name="nama_area" placeholder="Contoh: Parkiran Utara" required>
                      </div>
                      <div class="mb-3">
                          <label for="kapasitas" class="form-label">Kapasitas (Jumlah Kendaraan)</label>
-                         <input type="number" class="form-control" id="kapasitas" required>
+                         <input type="number" class="form-control" name="kapasitas" required>
                      </div>
                      <div class="mb-3">
-                         <label for="status" class="form-label">Status</label>
-                         <select class="form-select" id="status" required>
-                             <option value="1">Aktif</option>
-                             <option value="0">Non-Aktif</option>
+                         <label for="status" class="form-label">Tensi</label>
+                         <select class="form-select" name="tensi" required>
+                             <option value="1">Tersedia</option>
+                             <option value="0">Tidak Tersedia</option>
                          </select>
                      </div>
                  </div>
